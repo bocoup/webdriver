@@ -245,7 +245,7 @@ in the spec, as demonstrated in a (yet to be developed)
    <!-- Header --> <li><dfn><a href="https://fetch.spec.whatwg.org/#concept-header">Header</a></dfn>
    <!-- Header Name --> <li><dfn><a href="https://fetch.spec.whatwg.org/#concept-header-name">Header Name</a></dfn>
    <!-- Header Value --> <li><dfn><a href="https://fetch.spec.whatwg.org/#concept-header-value">Header Value</a></dfn>
-   <!-- Local Scheme --> <li><dfn><a href="https://fetch.spec.whatwg.org/#local-scheme">Local scheme</a></dfn>
+   <!-- is local --> <li><dfn><a href="https://fetch.spec.whatwg.org/#is-local">is local</a></dfn>
    <!-- Method --> <li><dfn><a href=https://fetch.spec.whatwg.org/#concept-request-method>Method</a></dfn>
    <!-- Response --> <li><dfn data-lt="http response"><a href=https://fetch.spec.whatwg.org/#concept-response>Response</a></dfn>
    <!-- Request --> <li><dfn data-lt="http request"><a href=https://fetch.spec.whatwg.org/#concept-request>Request</a></dfn>
@@ -3161,9 +3161,8 @@ with a "<code>moz:</code>" prefix:
   <a>getting the property</a> <code>url</code>
   from the <var>parameters</var> argument.
 
- <li><p>If <var>url</var> is not an <a>absolute URL</a>
-  or is not an <a>absolute URL with fragment</a> or not a
-  <a>local scheme</a>,
+ <li><p>If <var>url</var> is not an <a>absolute URL with fragment</a> and is not a
+  <a data-lt="is local">local URL</a>,
   return <a>error</a> with <a>error code</a> <a>invalid argument</a>.
 
  <li><p>Let <var>current URL</var> be the <a>current top-level browsing context</a>’s
