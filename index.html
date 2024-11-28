@@ -7127,9 +7127,13 @@ steps:
    <li><p>Let <body> be <a>ParseText</a>(<var>bodySource</var>, <a>AsyncFunctionBody</a>).
 
    <li><p>If <var>body</var> is a List of errors:
+
     <ol>
-      <li>Return
-        <a>Completion</a> { [[\Type]]: <code>normal</code>, [[\Value]]: <a><code>null</code></a>, [[\Target]]: <code>empty</code> }.
+
+     <li><p>Set <var>result</var> to a new <a>error</a> with <a>error code</a> <a>javascript error</a> and data null.
+
+     <li><p>Abort these substeps.
+
     </ol>
 
    <li><p><a>Prepare to run script</a> with <var>environment settings</var>.
@@ -7172,19 +7176,26 @@ steps:
    <li><p><a>Clean up after running script</a>
     with <var>environment settings</var>.
 
-   <!-- TODO: determine if this condition is actually possible; if not, assert it -->
-   <li><p>If <var>completion</var> is an abrupt completion:
+   <li><p>Assert: <var>completion</var> is a <a>normal completion</a>.
+
+   <li><p>Let <var>promise</var> be <var>completion</var>.[[\Value]].
+
+   <li><p>Wait until <var>result</var> is non-null or <var>promise</var> has settled,
+    whichever occurs first.
+
+   <li><p>If <var>result</var> is null:
 
     <ol>
 
-        <li><p>Set <var>result</var> to a new <a>error</a> with <a>error
-         code</a> <a>javascript error</a> and data null.
+     <li><p>Assert: <var>promise</var>.[[\PromiseState]] is not <code>PENDING</code>.
 
-        <li><p>Abort these steps.
+     <li><p>If <var>promise</var>.[[\\PromiseState]] is <code>REJECTED</code>, set <var>result</var>
+      to a new <a>error</a> with <a>error code</a> <a>javascript error</a> and data null.
+
+     <li><p>If <var>promise</var>.[[\PromiseState]] is <code>FULFILLED</code>, set <var>result</var>
+      to <a>success</a> with data <var>promise</var>.[[\PromiseResult]].
 
     </ol>
-
-  <li><p>TODO: promise stuff.
 
  </ol>
 
@@ -11680,6 +11691,7 @@ to automatically sort each list alphabetically.
    <!-- Function --> <li><dfn><a href=https://www.ecma-international.org/ecma-262/5.1/#sec-4.3.24>Function</a></dfn>
    <!-- Get --> <li><dfn><a href=https://tc39.github.io/ecma262/#sec-get-o-p>Get</a></dfn>
    <!-- IsCallable --> <li><dfn><a href=https://tc39.github.io/ecma262/#sec-iscallable>IsCallable</a></dfn>
+   <!-- normal completion --> <li><dfn><a href=https://tc39.es/ecma262/#sec-completion-record-specification-type>normal completion</a></dfn>
    <!-- OrdinaryFunctionCreate --> <li><dfn><a href=https://tc39.github.io/ecma262/#sec-ordinaryfunctioncreate>OrdinaryFunctionCreate</a></dfn>
    <!-- Own property --> <li><dfn data-lt="own properties"><a href=https://www.ecma-international.org/ecma-262/5.1/#sec-4.3.30>Own property</a></dfn>
    <!-- Parse Node --> <li><dfn><a href=https://tc39.es/ecma262/#sec-syntactic-grammar>Parse Node</a></dfn>
