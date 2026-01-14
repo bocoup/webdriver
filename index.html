@@ -7200,6 +7200,7 @@ steps:
    <li><p>Let <var>script promise</var> be <var>completion</var>.[[\Value]].
 
    <li><p>Run the following substeps <a>in parallel</a>:
+
     <ol>
      <li><p>Wait until <var>result</var> is non-null or <var>script promise</var> has rejected,
       whichever occurs first.
@@ -7209,6 +7210,12 @@ steps:
     </ol>
 
    <li><p>If <var>signal type</var> is "<code>callback</code>", let <var>result promise</var> be <var>callback promise</var>.
+    <p class=note>Prior revisions of this specification did not recognize the
+      return value of script provided to [=execute async script=]. In order to
+      preserve legacy behavior, the return value only influences that command
+      if it rejects prior to the invocation of
+      <var>resolvingFunctions</var><code>.[[\Resolve]]</code> as appended to
+      <var>arguments</var> in a preceding step in this algorithm.
 
    <li><p>Otherwise, let <var>result promise</var> be <var>script promise</var>.
 
@@ -7259,33 +7266,7 @@ variables</var> and <var>parameters</var> are:
  <li><p>Let <var>promise</var> be <a>a new Promise</a>.
 
  <li><p>Return the result of <a>execute an async function body</a>, with arguments
-        <var>session</var>, "<code>promise</code>", <var>body</var>, and <var>arguments</var>.
-
-    <li><p>Upon fulfillment of <var>scriptPromise</var> with value <var>v</var>,
-      <a>resolve</a> <var>promise</var> with value <var>v</var>.
-
-    <li><p>Upon rejection of <var>scriptPromise</var> with value <var>r</var>,
-      <a>reject</a> <var>promise</var> with value <var>r</var>.
-   </ol>
-
-  <li><p>Wait until <var>promise</var> is resolved,
-  or <var>timer</var>&apos;s [=timer/timeout fired flag=] is set,
-  whichever occurs first.
-
-  <li><p>If <var>promise</var> is still pending and
-  <var>timer</var>&apos;s [=timer/timeout fired flag=] is set,
-  return <a>error</a> with <a>error code</a> <a data-lt="script
-  timeout error">script timeout</a>.
-
-  <li><p>If <var>promise</var> is fulfilled with value <var>v</var>,
-  let <var>result</var> be <a>JSON clone</a> with <var>session</var>
-  and <var>v</var>, and return <a>success</a> with
-  data <var>result</var>.
-
-  <li><p>If <var>promise</var> is rejected with reason <var>r</var>,
-  let <var>result</var> be <a>JSON clone</a> with <var>session</var>
-  and <var>r</var>, and return <a>error</a> with <a>error
-  code</a> <a>javascript error</a> and data <var>result</var>.
+  <var>session</var>, "<code>promise</code>", <var>body</var>, and <var>arguments</var>.
 </ol>
 </section> <!-- /Execute Script -->
 
